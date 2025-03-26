@@ -13,7 +13,7 @@ Add the package to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nikolainobadi/NnSwiftDataKit", branch: "main")
+    .package(url: "https://github.com/nikolainobadi/NnSwiftDataKit", from: "0.5.0")
 ]
 ```
 
