@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-extension Scene {
+public extension Scene {
     func initializeSwiftDataModelContainer(schema: Schema, migrationPlan: (any SchemaMigrationPlan.Type)? = nil, configuration: ModelConfiguration = .init(), printDatabasePath: Bool = false) -> some Scene {
         do {
             let container = try ModelContainer(for: schema, migrationPlan: migrationPlan, configurations: configuration)
