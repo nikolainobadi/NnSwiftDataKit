@@ -8,7 +8,7 @@
 import SwiftData
 
 public extension ModelContainer {
-    func printDataStoreURL() {
+    func printStoreFilePath() {
         if let url = configurations.first?.url {
             print("SwiftData store location:", url.path(percentEncoded: false))
         } else {

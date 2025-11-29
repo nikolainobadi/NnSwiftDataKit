@@ -31,7 +31,7 @@ public extension Scene {
             let container = try ModelContainer(for: schema, migrationPlan: migrationPlan, configurations: configuration)
             
             if printDatabasePath {
-                container.printDataStoreURL()
+                container.printStoreFilePath()
             }
             
             return self.modelContainer(container)
