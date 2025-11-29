@@ -26,7 +26,7 @@ The package does **not** define any SwiftData models and does **not** manage sch
 Add the package to your `Package.swift` file:
 
 ```swift
-    .package(url: "https://github.com/nikolainobadi/NnSwiftDataKit", from: "0.6.0")
+    .package(url: "https://github.com/nikolainobadi/NnSwiftDataKit", from: "0.7.0")
 ```
 
 ---
