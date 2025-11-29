@@ -26,7 +26,7 @@ Add the package to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nikolainobadi/NnSwiftDataKit", from: "0.5.0")
+    .package(url: "https://github.com/nikolainobadi/NnSwiftDataKit", from: "0.6.0")
 ]
 ```
 
