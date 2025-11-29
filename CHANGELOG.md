@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - iOS platform support (iOS 17+)
 
 ### Changed
+- Updated to Swift 6.0 (swift-tools-version)
 - Updated README with usage examples and clearer API behavior documentation
 
 ### Fixed
