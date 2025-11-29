@@ -21,6 +21,4 @@ public func configureSwiftDataContainer(appGroupId: String, fileManager: FileMan
     return (configuration, userDefaults)
 }
 
-public enum SwiftDataContextError: Error {
-    case noAppGroupAccess
-}
+

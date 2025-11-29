@@ -1,5 +1,5 @@
 //
-//  SwiftDataInitializer.swift
+//  Scene+ModelContainer.swift
 //  NnSwiftDataKit
 //
 //  Created by Nikolai Nobadi on 4/5/25.
@@ -15,24 +15,14 @@ public extension Scene {
         configuration: ModelConfiguration = .init(),
         printDatabasePath: Bool = false
     ) -> some Scene {
-        
         do {
-            let container = try ModelContainer(
-                for: schema,
-                migrationPlan: migrationPlan,
-                configurations: configuration
-            )
+            let container = try ModelContainer(for: schema, migrationPlan: migrationPlan, configurations: configuration)
             
             if printDatabasePath {
-                if let url = container.configurations.first?.url {
-                    print("SwiftData store location:", url.path(percentEncoded: false))
-                } else {
-                    print("SwiftData store location: <unknown>")
-                }
+                container.printDataStoreURL()
             }
             
             return self.modelContainer(container)
-            
         } catch {
             fatalError("Failed to initialize SwiftData ModelContainer: \(error)")
         }
