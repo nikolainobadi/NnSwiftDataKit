@@ -4,8 +4,9 @@ NnSwiftDataKit is a lightweight Swift package that streamlines the setup of Swif
 
 - a clean way to create a `ModelConfiguration` that stores data inside an App Group  
 - automatic access to the correct `UserDefaults` suite  
+- a one-liner to build a `ModelContainer` and `UserDefaults` together  
 - a convenient `Scene` extension for initializing a `ModelContainer`  
-- optional database path printing for debugging  
+- optional database path printing for debugging via a `ModelContainer` helper  
 
 The package does **not** define any SwiftData models and does **not** manage schema or migrations. Your app remains fully in control of its domain and data types.
 
@@ -25,9 +26,7 @@ The package does **not** define any SwiftData models and does **not** manage sch
 Add the package to your `Package.swift` file:
 
 ```swift
-dependencies: [
     .package(url: "https://github.com/nikolainobadi/NnSwiftDataKit", from: "0.6.0")
-]
 ```
 
 ---
@@ -42,9 +41,17 @@ import NnSwiftDataKit
 
 ---
 
+## API Overview
+- `makeAppGroupConfiguration(appGroupId:fileManager:)` → `ModelConfiguration` + `UserDefaults`
+- `makeAppGroupModelContainer(schema:appGroupId:fileManager:migrationPlan:)` → `ModelContainer` + `UserDefaults`
+- `Scene.initializeSwiftDataModelContainer(schema:migrationPlan:configuration:printDatabasePath:)` → attaches a configured container to a scene
+- `ModelContainer.printStoreFilePath()` → logs the resolved store location
+
+---
+
 ## Configuring the SwiftData Container
 
-Use `makeAppGroupConfiguration` to prepare a `ModelConfiguration` and the App Group `UserDefaults` instance:
+Use `makeAppGroupConfiguration` to prepare a `ModelConfiguration` and the App Group `UserDefaults` instance (throws `SwiftDataContextError.noAppGroupAccess` if the group is unavailable):
 
 ```swift
 do {
@@ -56,6 +63,22 @@ do {
 } catch {
     print("Failed to configure SwiftData container:", error)
 }
+```
+
+---
+
+## Creating a ModelContainer Directly
+
+Build a ready-to-use `ModelContainer` and `UserDefaults` in one step. You can pass a migration plan when needed:
+
+```swift
+let (container, defaults) = try makeAppGroupModelContainer(
+    schema: Schema([MyModel.self]),
+    appGroupId: "group.com.example.app",
+    migrationPlan: MyMigrationPlan.self
+)
+
+container.printStoreFilePath() // optional: logs the store location
 ```
 
 ---
@@ -77,6 +100,7 @@ struct ExampleApp: App {
         }
         .initializeSwiftDataModelContainer(
             schema: Schema([MyModel.self]),
+            migrationPlan: MyMigrationPlan.self,
             configuration: config,
             printDatabasePath: true
         )
@@ -90,8 +114,7 @@ This initializes a SwiftData container using your App Group and applies it to th
 
 ## Error Handling
 
-If the App Group container or the associated `UserDefaults` suite cannot be accessed,
-`makeAppGroupConfiguration` throws:
+If the App Group container or the associated `UserDefaults` suite cannot be accessed, the helpers throw:
 
 ```swift
 SwiftDataContextError.noAppGroupAccess
