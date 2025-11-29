@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-11-29
+
+### Added
+- `makeAppGroupConfiguration` function to create SwiftData configuration and UserDefaults for app groups
+- `makeAppGroupModelContainer` function to create complete ModelContainer configured for app group sharing
+- `ModelContainer.printStoreFilePath()` extension method for debugging database location
+- Comprehensive inline documentation for all public APIs
+
+### Changed
+- Improved README with clearer usage examples and API behavior documentation
+
+### Removed
+- `configureSwiftDataContainer` function (replaced by `makeAppGroupConfiguration` and `makeAppGroupModelContainer`)
+
+### Migration Guide
+If you were using `configureSwiftDataContainer`, replace it with:
+- `makeAppGroupConfiguration` - for configuration and UserDefaults only
+- `makeAppGroupModelContainer` - for a complete ModelContainer setup
+
 ## [0.6.0] - 2025-11-28
 
 ### Added
