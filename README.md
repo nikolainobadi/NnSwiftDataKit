@@ -44,11 +44,11 @@ import NnSwiftDataKit
 
 ## Configuring the SwiftData Container
 
-Use `configureSwiftDataContainer` to prepare a `ModelConfiguration` and the App Group `UserDefaults` instance:
+Use `makeAppGroupConfiguration` to prepare a `ModelConfiguration` and the App Group `UserDefaults` instance:
 
 ```swift
 do {
-    let (config, defaults) = try configureSwiftDataContainer(
+    let (config, defaults) = try makeAppGroupConfiguration(
         appGroupId: "group.com.example.app"
     )
 
@@ -68,7 +68,7 @@ Use the `initializeSwiftDataModelContainer` modifier inside your `Scene` builder
 @main
 struct ExampleApp: App {
     var body: some Scene {
-        let (config, _) = try! configureSwiftDataContainer(
+        let (config, _) = try! makeAppGroupConfiguration(
             appGroupId: "group.com.example.app"
         )
 
@@ -90,8 +90,8 @@ This initializes a SwiftData container using your App Group and applies it to th
 
 ## Error Handling
 
-If the App Group container or the associated `UserDefaults` suite cannot be accessed,  
-`configureSwiftDataContainer` throws:
+If the App Group container or the associated `UserDefaults` suite cannot be accessed,
+`makeAppGroupConfiguration` throws:
 
 ```swift
 SwiftDataContextError.noAppGroupAccess
