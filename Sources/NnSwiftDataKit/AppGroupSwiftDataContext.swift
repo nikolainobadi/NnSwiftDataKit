@@ -56,7 +56,7 @@ public func makeAppGroupModelContainer(
     schema: Schema,
     appGroupId: String,
     fileManager: FileManager = .default,
-    migrationPlan: (any SchemaMigrationPlan.Type)? = nil,
+    migrationPlan: (any SchemaMigrationPlan.Type)? = nil
 ) throws -> (container: ModelContainer, defaults: UserDefaults) {
     let (config, defaults) = try makeAppGroupConfiguration(appGroupId: appGroupId, fileManager: fileManager)
     let container = try ModelContainer(for: schema, migrationPlan: migrationPlan, configurations: config)
