@@ -93,7 +93,8 @@ public func makeAppGroupModelContainer(
 public func migrateAppGroupSwiftDataStoreIfNeeded(
     from oldAppGroupId: String,
     to newAppGroupId: String,
-    fileManager: FileManager = .default
+    fileManager: FileManager = .default,
+    deleteOldAfterMigration: Bool = true
 ) throws {
     guard
         let oldURL = fileManager.containerURL(forSecurityApplicationGroupIdentifier: oldAppGroupId),
@@ -101,25 +102,24 @@ public func migrateAppGroupSwiftDataStoreIfNeeded(
     else {
         return
     }
-    
-    // If new container already contains data, nothing to migrate.
-    if fileManager.fileExists(atPath: newURL.path) {
+
+    let newExists = fileManager.fileExists(atPath: newURL.path)
+    let oldExists = fileManager.fileExists(atPath: oldURL.path)
+
+    if newExists || !oldExists {
         return
     }
-    
-    // If old container does not exist, nothing to migrate.
-    if !fileManager.fileExists(atPath: oldURL.path) {
-        return
-    }
-    
-    // Ensure parent directory exists for new container.
+
     let parent = newURL.deletingLastPathComponent()
     if !fileManager.fileExists(atPath: parent.path) {
         try fileManager.createDirectory(at: parent, withIntermediateDirectories: true)
     }
-    
-    // Copy existing store to new group.
+
     try fileManager.copyItem(at: oldURL, to: newURL)
+
+    if deleteOldAfterMigration {
+        try? fileManager.removeItem(at: oldURL)
+    }
 }
 
 
