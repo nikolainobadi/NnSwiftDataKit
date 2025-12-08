@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0] - 2025-12-08
+
+### Added
+- CloudKit sync support via optional `cloudKitDatabaseId` parameter in `makeAppGroupConfiguration` and `makeAppGroupModelContainer`
+- `name` parameter to distinguish multiple stores in the same container
+- `readOnly` parameter to disable saves and treat stores as read-only
+- Support for private CloudKit databases when `cloudKitDatabaseId` is specified
+
 ## [0.8.0] - 2025-12-06
 
 ### Added
