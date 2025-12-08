@@ -90,8 +90,8 @@ public func makeAppGroupModelContainer(
     appGroupId: String,
     readOnly: Bool = false,
     fileManager: FileManager = .default,
-    migrationPlan: (any SchemaMigrationPlan.Type)? = nil,
-    cloudKitDatabaseId: String? = nil
+    cloudKitDatabaseId: String? = nil,
+    migrationPlan: (any SchemaMigrationPlan.Type)? = nil
 ) throws -> (container: ModelContainer, defaults: UserDefaults) {
     let (config, defaults) = try makeAppGroupConfiguration(
         name: name,
